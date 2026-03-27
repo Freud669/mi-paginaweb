@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROCRAFT School – Formation Sheetrock</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #FF5500;
+  --orange2: #FF8800;
+  --black: #080808;
+  --dark: #111111;
+  --card: #161616;
+  --border: rgba(255,85,0,0.25);
+  --text: #F5F0EB;
+  --muted: #888880;
+  --gold: #C9A84C;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* NOISE TEXTURE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.5;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px;
+  height: 72px;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px; letter-spacing: 3px;
+  color: var(--text);
+}
+.logo em { color: var(--orange); font-style: normal; }
+
+nav ul { list-style: none; display: flex; gap: 32px; }
+nav ul a {
+  color: var(--muted); text-decoration: none;
+  font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; transition: color 0.2s;
+}
+nav ul a:hover { color: var(--text); }
+
+.nav-cta {
+  background: var(--orange) !important;
+  color: #fff !important;
+  padding: 11px 24px !important;
+  border-radius: 2px;
+  letter-spacing: 1px !important;
+  transition: opacity 0.2s !important;
+}
+.nav-cta:hover { opacity: 0.85; color: #fff !important; }
+
+/* ─── URGENCY BAR ─── */
+.urgency-bar {
+  margin-top: 72px;
+  background: linear-gradient(90deg, var(--orange), var(--orange2), var(--orange));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  cursor: pointer;
+}
+@keyframes shimmer { 0%{background-position:0% 0%} 100%{background-position:200% 0%} }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-lines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,85,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,85,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow {
+  position: absolute; top: -100px; left: -200px;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,85,0,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-left {
+  padding: 120px 56px 80px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,85,0,0.1);
+  border: 1px solid rgba(255,85,0,0.3);
+  border-radius: 2px;
+  padding: 8px 16px;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--orange);
+  margin-bottom: 28px;
+  width: fit-content;
+  animation: fadeUp 0.6s ease both;
+}
+.eyebrow-dot {
+  width: 6px; height: 6px; background: var(--orange);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(64px, 8vw, 110px);
+  line-height: 0.9;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero h1 .line2 {
+  color: var(--orange);
+  -webkit-text-stroke: 1px var(--orange);
+}
+.hero h1 .line3 {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(245,240,235,0.35);
+}
+
+.hero-sub {
+  font-size: 16px; color: var(--muted);
+  line-height: 1.75; max-width: 440px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.hero-sub strong { color: var(--text); }
+
+.hero-btns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  margin-bottom: 56px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700; font-size: 14px;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 16px 36px;
+  border: none; border-radius: 2px;
+  cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 10px;
+  position: relative; overflow: hidden;
+  transition: transform 0.2s;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.4s;
+}
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary:hover::after { left: 150%; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600; font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 16px 32px;
+  border: 1px solid #2e2e2e;
+  border-radius: 2px;
+  cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+/* Stats row */
+.stats-row {
+  display: flex; gap: 0;
+  border: 1px solid #222;
+  border-radius: 4px;
+  overflow: hidden;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.stat {
+  flex: 1; padding: 20px 22px;
+  border-right: 1px solid #222;
+  position: relative;
+}
+.stat:last-child { border-right: none; }
+.stat::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--orange);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s;
+}
+.stat:hover::before { transform: scaleX(1); }
+.stat-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px; letter-spacing: 1px;
+  color: var(--orange);
+  line-height: 1;
+}
+.stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.5px; }
+
+/* HERO RIGHT */
+.hero-right {
+  position: relative; overflow: hidden;
+}
+.hero-right::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to right, var(--black) 0%, rgba(8,8,8,0.2) 60%, transparent 100%),
+              linear-gradient(to top, var(--black) 0%, transparent 30%);
+}
+.hero-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: brightness(0.7) contrast(1.1) saturate(0.9);
+}
+
+/* floating badge */
+.hero-badge-float {
+  position: absolute; bottom: 48px; right: 32px; z-index: 2;
+  background: rgba(8,8,8,0.9);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: 4px;
+  padding: 16px 22px;
+  backdrop-filter: blur(12px);
+  animation: fadeUp 0.6s 0.5s ease both;
+}
+.badge-tag { font-size: 10px; color: var(--orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+.badge-val { font-family: 'Anton', sans-serif; font-size: 24px; letter-spacing: 1px; }
+.badge-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ─── CONTACT STRIP ─── */
+.contact-strip {
+  background: var(--dark);
+  border-top: 1px solid #1e1e1e;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 20px 56px;
+  display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+}
+.contact-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+}
+.contact-item a { color: var(--text); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+.contact-item a:hover { color: var(--orange); }
+.contact-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,85,0,0.1);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+}
+
+/* ─── SECTIONS ─── */
+.section { padding: 100px 56px; }
+.section.dark { background: var(--dark); }
+
+.section-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--orange);
+  margin-bottom: 16px;
+}
+.kicker-line { width: 28px; height: 1px; background: var(--orange); }
+
+.section-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(40px, 5vw, 68px);
+  letter-spacing: 2px; line-height: 0.95;
+  margin-bottom: 20px;
+}
+.accent { color: var(--orange); }
+
+.section-desc {
+  color: var(--muted); font-size: 15px; line-height: 1.8;
+  max-width: 520px; margin-bottom: 52px;
+}
+
+/* ─── PROGRAM GRID ─── */
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #1e1e1e;
+  border: 1px solid #1e1e1e;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.program-card {
+  background: var(--card);
+  padding: 36px 30px;
+  position: relative;
+  transition: background 0.3s;
+  cursor: default;
+}
+.program-card:hover { background: #1d1d1d; }
+.program-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--orange);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s;
+}
+.program-card:hover::after { transform: scaleX(1); }
+
+.pc-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; color: var(--orange);
+  letter-spacing: 1px; margin-bottom: 18px;
+}
+.pc-icon { font-size: 28px; margin-bottom: 14px; }
+.pc-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px; letter-spacing: 1px;
+  margin-bottom: 10px; line-height: 1.1;
+}
+.pc-desc { color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+/* ─── GALLERY ─── */
+.gallery-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 48px;
+}
+.gallery-item {
+  position: relative; overflow: hidden;
+  border-radius: 4px; aspect-ratio: 4/3;
+}
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease, filter 0.4s;
+  filter: brightness(0.75) saturate(0.85);
+}
+.gallery-item:hover img { transform: scale(1.06); filter: brightness(0.85) saturate(1); }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 60%);
+}
+.gallery-label {
+  position: absolute; bottom: 20px; left: 22px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+}
+.gallery-tag {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff; font-size: 10px;
+  font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px;
+  margin-bottom: 6px;
+}
+
+/* ─── WHY ─── */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.why-card {
+  background: var(--card);
+  border: 1px solid #1e1e1e;
+  border-radius: 4px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.why-card:hover { border-color: rgba(255,85,0,0.4); }
+.why-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--orange);
+  transition: height 0.4s;
+}
+.why-card:hover::before { height: 100%; }
+
+.why-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; color: rgba(255,85,0,0.5);
+  letter-spacing: 1px; margin-bottom: 20px;
+}
+.why-icon {
+  width: 44px; height: 44px;
+  background: rgba(255,85,0,0.1);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 18px;
+}
+.why-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.3px; }
+.why-card p { color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+/* ─── PRICING ─── */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.pricing-card {
+  background: var(--card);
+  border: 1px solid #1e1e1e;
+  border-radius: 6px;
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.pricing-card:hover { transform: translateY(-6px); border-color: var(--border); }
+.pricing-card.featured {
+  border-color: var(--orange);
+  background: linear-gradient(135deg, rgba(255,85,0,0.08) 0%, var(--card) 60%);
+}
+.pricing-card.featured::before {
+  content: 'PRINCIPAL';
+  position: absolute; top: 14px; right: -22px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  padding: 4px 36px;
+  transform: rotate(45deg);
+}
+.pricing-icon { font-size: 32px; margin-bottom: 16px; }
+.pricing-num {
+  font-family: 'Anton', sans-serif;
+  font-size: 58px; line-height: 1;
+  color: var(--orange); letter-spacing: 1px;
+}
+.pricing-unit { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 16px; }
+.pricing-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ─── FORM ─── */
+.form-section { padding: 100px 56px; }
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.form-info { position: sticky; top: 100px; }
+.form-info-points { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+.fip {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 18px 20px;
+  background: var(--card);
+  border: 1px solid #1e1e1e;
+  border-radius: 4px;
+}
+.fip-dot {
+  width: 22px; height: 22px;
+  background: var(--orange); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+  margin-top: 1px;
+}
+.fip-text { font-size: 13px; }
+.fip-text strong { display: block; font-weight: 700; margin-bottom: 2px; font-size: 14px; }
+.fip-text span { color: var(--muted); }
+
+.form-card {
+  background: var(--card);
+  border: 1px solid #1e1e1e;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.form-header {
+  background: var(--orange);
+  padding: 22px 32px;
+  font-family: 'Anton', sans-serif;
+  font-size: 20px; letter-spacing: 2px;
+  display: flex; align-items: center; gap: 12px;
+}
+
+.form-body { padding: 32px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: var(--dark);
+  border: 1px solid #2a2a2a;
+  border-radius: 3px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255,85,0,0.1);
+}
+.form-group select option { background: #111; }
+.form-group textarea { resize: vertical; min-height: 90px; }
+
+.form-submit {
+  width: 100%;
+  background: var(--orange);
+  color: #fff;
+  font-family: 'Anton', sans-serif;
+  font-size: 20px; letter-spacing: 3px;
+  padding: 18px;
+  border: none; border-radius: 3px;
+  cursor: pointer;
+  margin-top: 8px;
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.form-submit:hover { transform: translateY(-2px); opacity: 0.9; }
+.form-note {
+  text-align: center; color: var(--muted);
+  font-size: 11px; margin-top: 14px; letter-spacing: 0.5px;
+}
+.success-msg {
+  display: none;
+  background: rgba(40,160,40,0.08);
+  border: 1px solid rgba(40,160,40,0.3);
+  border-radius: 4px;
+  padding: 20px; color: #6aff6a;
+  font-weight: 600; text-align: center;
+  margin-top: 16px; font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: #050505;
+  border-top: 1px solid #1a1a1a;
+  padding: 48px 56px 36px;
+}
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.footer-brand .logo { font-size: 28px; margin-bottom: 6px; }
+.footer-brand p { color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 280px; margin-top: 8px; }
+.footer-phones { display: flex; flex-direction: column; gap: 4px; }
+.footer-phones a {
+  color: var(--text); text-decoration: none;
+  font-size: 15px; font-weight: 600;
+  transition: color 0.2s;
+}
+.footer-phones a:hover { color: var(--orange); }
+.footer-phones .phone-label { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.footer-bottom {
+  padding-top: 24px;
+  border-top: 1px solid #1a1a1a;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-bottom p { color: #444; font-size: 12px; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 960px) {
+  nav { padding: 0 22px; }
+  nav ul { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { height: 45vh; order: -1; }
+  .hero-right::before { background: linear-gradient(to bottom, transparent 40%, var(--black) 100%); }
+  .hero-left { padding: 36px 22px 56px; }
+  .section { padding: 64px 22px; }
+  .contact-strip { padding: 18px 22px; gap: 18px; }
+  .program-grid { grid-template-columns: 1fr; }
+  .gallery-wrap { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .form-layout { grid-template-columns: 1fr; gap: 36px; }
+  .form-info { position: static; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 40px 22px 28px; }
+  .footer-top { flex-direction: column; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .hero-badge-float { display: none; }
+  .form-section { padding: 64px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><em>PRO</em>CRAFT School</div>
+  <ul>
+    <li><a href="#aprann">Pwogram</a></li>
+    <li><a href="#galri">Travay</a></li>
+    <li><a href="#poukisa">Avantaj</a></li>
+    <li><a href="#pri">Pri</a></li>
+    <li><a href="#enskripsyon" class="nav-cta">Enskri →</a></li>
+  </ul>
+</nav>
+
+<!-- URGENCY -->
+<div class="urgency-bar" onclick="document.getElementById('enskripsyon').scrollIntoView({behavior:'smooth'})">
+  ⚠ &nbsp;ESPAS LIMITE — Sesyon kòmanse byento! &nbsp;Klike pou enskri kounye a →
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Formation Sheetrock / Drywall — Ouanaminthe
+    </div>
+
+    <h1>
+      PRO<br>
+      <span class="line2">CRAFT</span><br>
+      <span class="line3">SCHOOL</span>
+    </h1>
+
+    <p class="hero-sub">
+      Aprann metye Drywall ak <strong>enstriktè pwofesyonèl</strong>.
+      Fòmasyon <strong>100% pratik</strong> — plafon, miray, TV wall.
+      Sètifika, dokiman ak materyèl <strong>inklui</strong>.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#enskripsyon" class="btn-primary">Enskri Kounye a 🔨</a>
+      <a href="#aprann" class="btn-ghost">Wè Pwogram Nan</a>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Mwa Fòmasyon</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1K</div>
+        <div class="stat-label">Goud Enskripsyon</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">25K</div>
+        <div class="stat-label">Goud Patisipasyon</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img class="hero-img" src="WhatsApp_Image_2026-01-29_at_10_03_44_PM__1_.jpeg" alt="Plafon drywall modèn ak limyè LED">
+    <div class="hero-badge-float">
+      <div class="badge-tag">✓ Inklui</div>
+      <div class="badge-val">Sètifika Ofisyèl</div>
+      <div class="badge-sub">+ Dokiman + Materyèl</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="contact-item">
+    <div class="contact-icon">📍</div>
+    Ouanaminthe, Manquette
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">📞</div>
+    <a href="tel:41932402">4193-2402</a>
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">📞</div>
+    <a href="tel:35336753">3533-6753</a>
+  </div>
+  <div class="contact-item">
+    <div class="contact-icon">📞</div>
+    <a href="tel:41624838">4162-4838</a>
+  </div>
+</div>
+
+<!-- PROGRAM -->
+<section class="section" id="aprann">
+  <div class="section-kicker"><span class="kicker-line"></span>Pwogram Fòmasyon</div>
+  <h2 class="section-title">SA W PRAL<br><span class="accent">APRANN</span></h2>
+  <p class="section-desc">Fòmasyon nou an kouvri tout domèn Drywall — depi striktire metalik jiska finisyon pwofesyonèl.</p>
+
+  <div class="program-grid reveal">
+    <div class="program-card">
+      <div class="pc-num">01 — STRIKTIRE</div>
+      <div class="pc-icon">🏗️</div>
+      <div class="pc-title">Striktire Metalik</div>
+      <p class="pc-desc">Monte striktire metalik solid pou miray ak plafon modèn ak bon teknik.</p>
+    </div>
+    <div class="program-card">
+      <div class="pc-num">02 — SHEETROCK</div>
+      <div class="pc-icon">🪟</div>
+      <div class="pc-title">Poze Sheetrock</div>
+      <p class="pc-desc">Teknik pwofesyonèl pou poze plak Sheetrock vit, pwòp, ak pwesizyon.</p>
+    </div>
+    <div class="program-card">
+      <div class="pc-num">03 — PLAFON</div>
+      <div class="pc-icon">✨</div>
+      <div class="pc-title">Revètman Plafon</div>
+      <p class="pc-desc">Kreye plafon modèn ak fini bèl pou rezidans ak biwo.</p>
+    </div>
+    <div class="program-card">
+      <div class="pc-num">04 — FINISYON</div>
+      <div class="pc-icon">🎨</div>
+      <div class="pc-title">Nivo & Mastik</div>
+      <p class="pc-desc">Joint, mastik ak ponçage — fini travay ou yon fason pwofesyonèl.</p>
+    </div>
+    <div class="program-card">
+      <div class="pc-num">05 — ELEKTRISITE</div>
+      <div class="pc-icon">⚡</div>
+      <div class="pc-title">Nosyon Elektrisite</div>
+      <p class="pc-desc">Integre limyè LED ak kanalizasyon nan travay drywall ou yo.</p>
+    </div>
+    <div class="program-card">
+      <div class="pc-num">06 — TV WALL</div>
+      <div class="pc-icon">📺</div>
+      <div class="pc-title">TV Wall Modèn</div>
+      <p class="pc-desc">Kreye TV wall — youn nan travay ki pi peye nan mache a jodi a.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section dark" id="galri">
+  <div class="section-kicker"><span class="kicker-line"></span>Reyalizasyon Nou</div>
+  <h2 class="section-title">TRAVAY<br><span class="accent">PWOFESYONÈL</span></h2>
+  <p class="section-desc">Sa ou ka reyalize apre fòmasyon — pwojè reyèl pa elèv nou yo.</p>
+
+  <div class="gallery-wrap reveal">
+    <div class="gallery-item">
+      <img src="WhatsApp_Image_2026-01-29_at_10_03_44_PM__1_.jpeg" alt="Plafon drywall modèn ak limyè LED">
+      <div class="gallery-overlay"></div>
+      <div class="gallery-label">
+        <div class="gallery-tag">Plafon LED</div>
+        <div>Drywall ak limyè encastré modèn</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="WhatsApp_Image_2026-01-29_at_10_03_40_PM.jpeg" alt="Procraft School formation Sheetrock">
+      <div class="gallery-overlay"></div>
+      <div class="gallery-label">
+        <div class="gallery-tag">Sheetrock</div>
+        <div>Poze plak ak striktire metalik</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="section" id="poukisa">
+  <div class="section-kicker"><span class="kicker-line"></span>Poukisa Nou</div>
+  <h2 class="section-title">AVANTAJ<br><span class="accent">PROCRAFT</span></h2>
+  <p class="section-desc">Nou pa jis anseye — nou prepare ou pou travay reyèl ak touche lajan vre.</p>
+
+  <div class="why-grid reveal">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <div class="why-icon">🔨</div>
+      <h4>Fòmasyon 100% Pratik</h4>
+      <p>Ou travay ak men ou depi premye jou a — pa teyori sèlman.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <div class="why-icon">📜</div>
+      <h4>Sètifika Ofisyèl</h4>
+      <p>Sètifika ba ou anseye apre fini fòmasyon an — rekonet nan domèn nan.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <div class="why-icon">🧰</div>
+      <h4>Materyèl Inklui</h4>
+      <p>Tout zouti ak materyèl nesesè ba ou — pa bezwen achte anyen anplis.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <div class="why-icon">👷</div>
+      <h4>Enstriktè Eksperyanse</h4>
+      <p>Pwofesyonèl ak ane eksperyans sou tèren reyèl ki anseye ou direkteman.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">05</div>
+      <div class="why-icon">🌍</div>
+      <h4>Pou Tout Moun</h4>
+      <p>Jèn, granmoun, débutant — tout moun ka vin yon pwofesyonèl sètifye.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">06</div>
+      <div class="why-icon">📋</div>
+      <h4>Dokiman Ofisyèl</h4>
+      <p>Dokiman ki pèmèt ou travay legalement ak jwenn kontra pwofesyonèl.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section dark" id="pri">
+  <div class="section-kicker"><span class="kicker-line"></span>Pri & Dire</div>
+  <h2 class="section-title">ENFÒMASYON<br><span class="accent">PRATIK</span></h2>
+  <p class="section-desc">Tout sa ou bezwen konnen anvan ou enskri — transparent, san kache.</p>
+
+  <div class="pricing-grid reveal">
+    <div class="pricing-card">
+      <div class="pricing-icon">📅</div>
+      <div class="pricing-num">3</div>
+      <div class="pricing-unit">Mwa Fòmasyon</div>
+      <div class="pricing-desc">Pwogram entansif ki kouvri tout aspè Drywall / Sheetrock nan 3 mwa.</div>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-icon">💳</div>
+      <div class="pricing-num">1K</div>
+      <div class="pricing-unit">Goud pou Enskri</div>
+      <div class="pricing-desc">Frè inisyal pou rezève plas ou nan sesyon. Peye premye etap ou kounye a.</div>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-icon">🏆</div>
+      <div class="pricing-num">25K</div>
+      <div class="pricing-unit">Goud Patisipasyon</div>
+      <div class="pricing-desc">Sètifika, dokiman ak materyèl inklui. Pri total fòmasyon konplè a.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="enskripsyon">
+  <div class="form-layout">
+    <div class="form-info">
+      <div class="section-kicker"><span class="kicker-line"></span>Pran Plas Ou</div>
+      <h2 class="section-title" style="margin-bottom:16px;">ENSKRI<br><span class="accent">KOUNYE A</span></h2>
+      <p class="section-desc" style="margin-bottom:0;">Ranpli fòm sa a — nou pral kontakte ou nan 24è. Espas limite, pa tann!</p>
+
+      <div class="form-info-points reveal">
+        <div class="fip">
+          <div class="fip-dot">1</div>
+          <div class="fip-text">
+            <strong>Ranpli Fòm Lan</strong>
+            <span>Prenon, siyati ak nimewo telefòn ou.</span>
+          </div>
+        </div>
+        <div class="fip">
+          <div class="fip-dot">2</div>
+          <div class="fip-text">
+            <strong>Nou Rele Ou</strong>
+            <span>Yon manm ekip nou kontakte ou nan 24è.</span>
+          </div>
+        </div>
+        <div class="fip">
+          <div class="fip-dot">3</div>
+          <div class="fip-text">
+            <strong>Kòmanse Fòmasyon</strong>
+            <span>Vin nan lekòl la ak peye 1,000g pou rezève plas ou.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card reveal">
+      <div class="form-header">
+        🔨 FÒMILÈ ENSKRIPSYON
+      </div>
+      <div class="form-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prenon *</label>
+            <input type="text" id="prenon" placeholder="Jan">
+          </div>
+          <div class="form-group">
+            <label>Siyati *</label>
+            <input type="text" id="siyati" placeholder="Dupont">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nimewo Telefòn *</label>
+          <input type="tel" id="telefon" placeholder="4193-XXXX">
+        </div>
+        <div class="form-group">
+          <label>Imèl (Opsyonèl)</label>
+          <input type="email" id="imel" placeholder="ou@example.com">
+        </div>
+        <div class="form-group">
+          <label>Eksperyans Drywall?</label>
+          <select id="eksperyans">
+            <option value="">-- Chwazi --</option>
+            <option value="non">Non, mwen débutant nèt</option>
+            <option value="yon-ti-kras">Wi, yon ti kras sèlman</option>
+            <option value="wi">Wi, men mwen vle amelyore</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Kijan ou Tande Pale de Nou?</label>
+          <select id="source">
+            <option value="">-- Chwazi --</option>
+            <option value="zanmi">Zanmi / Fanmi</option>
+            <option value="rezo-sosyal">Rezo Sosyal</option>
+            <option value="afich">Afich / Flyer</option>
+            <option value="lot">Lòt</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mesaj (Opsyonèl)</label>
+          <textarea id="mesaj" placeholder="Kesyon ou genyen oswa kèk mo sou ou..."></textarea>
+        </div>
+        <button class="form-submit" onclick="soumèt()">ENSKRI KOUNYE A →</button>
+        <p class="form-note">⚡ Nou pral rele ou nan 24è — espas limite, pa tann!</p>
+        <div class="success-msg" id="successMsg">
+          ✅ Enskripsyon ou resevwa!<br>
+          Nou pral kontakte ou trè vit. Mèsi anpil!
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo"><em>PRO</em>CRAFT School</div>
+      <p>Formation Sheetrock / Drywall — 100% Pratik. Sètifika, dokiman ak materyèl inklui. Ouanaminthe, Manquette.</p>
+    </div>
+    <div class="footer-phones">
+      <div class="phone-label">Kontakte Nou</div>
+      <a href="tel:41932402">📞 4193-2402</a>
+      <a href="tel:35336753">📞 3533-6753</a>
+      <a href="tel:41624838">📞 4162-4838</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Procraft School. Tout dwa rezève.</p>
+    <p>Ouanaminthe, Manquette — Haiti</p>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form
+function soumèt() {
+  const prenon = document.getElementById('prenon').value.trim();
+  const siyati = document.getElementById('siyati').value.trim();
+  const telefon = document.getElementById('telefon').value.trim();
+  if (!prenon || !siyati || !telefon) {
+    alert('Tanpri ranpli: Prenon, Siyati ak Nimewo Telefòn ou.');
+    return;
+  }
+  const btn = document.querySelector('.form-submit');
+  btn.disabled = true;
+  btn.textContent = 'Ap Voye...';
+  setTimeout(() => {
+    document.getElementById('successMsg').style.display = 'block';
+    btn.textContent = '✅ ENSKRI';
+    btn.style.background = '#1a6a1a';
+    document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth' });
+  }, 1000);
+}
+</script>
+</body>
+</html>

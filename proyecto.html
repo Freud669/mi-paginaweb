@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROCRAFT School – Ultra Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --orange:#FF6B00;
+  --black:#0D0D0D;
+  --card:#1f1f1f;
+  --text:#F5F5F5;
+  --muted:#A0A0A0;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#0d0d0d;
+  color:var(--text);
+  font-family:'Barlow',sans-serif;
+}
+
+nav{
+  position:fixed;
+  width:100%;
+  top:0;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(12px);
+  display:flex;
+  justify-content:space-between;
+  padding:16px 40px;
+  z-index:100;
+}
+
+.logo{font-family:'Bebas Neue';font-size:28px;color:var(--orange)}
+
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e') center/cover;
+  position:relative;
+}
+
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.7);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  animation:fadeUp 1s ease;
+}
+
+.hero h1{
+  font-family:'Bebas Neue';
+  font-size:80px;
+}
+.hero span{color:var(--orange)}
+
+.btn{
+  background:var(--orange);
+  color:black;
+  padding:14px 30px;
+  border-radius:6px;
+  font-weight:700;
+  text-decoration:none;
+  transition:.3s;
+}
+.btn:hover{transform:scale(1.08)}
+
+.counter{
+  margin-top:20px;
+  font-size:18px;
+  color:#ffb380;
+}
+
+section{padding:80px 40px}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  padding:25px;
+  border-radius:10px;
+  transition:.4s;
+  border:1px solid #2a2a2a;
+}
+.card:hover{
+  transform:translateY(-8px) scale(1.03);
+  border-color:var(--orange);
+}
+
+.form{
+  max-width:500px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+input{
+  padding:12px;
+  background:#1a1a1a;
+  border:1px solid #333;
+  color:white;
+}
+
+.footer{text-align:center;padding:30px;color:var(--muted)}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">PROCRAFT</div>
+<a href="#form" class="btn">Enskri</a>
+</nav>
+
+<div class="hero">
+<div class="hero-content">
+<h1>VIN YON <span>PRO</span><br>DRYWALL</h1>
+<p>Aprann metye ki bay lajan rapid</p>
+<a href="#form" class="btn">Enskri Kounye a</a>
+<div class="counter">⏳ Espas ki rete: <span id="spots">12</span></div>
+</div>
+</div>
+
+<section>
+<h2>Sa w ap aprann</h2>
+<div class="cards">
+<div class="card">Strikti metalik</div>
+<div class="card">Poze drywall</div>
+<div class="card">Plafon modèn</div>
+<div class="card">Fini pwofesyonèl</div>
+</div>
+</section>
+
+<section>
+<h2>Enskripsyon rapid</h2>
+<div class="form" id="form">
+<input type="text" id="name" placeholder="Non ou">
+<input type="tel" id="phone" placeholder="Telefòn ou">
+<button class="btn" onclick="sendWhatsApp()">Voye sou WhatsApp</button>
+</div>
+</section>
+
+<div class="footer">© 2026 PROCRAFT SCHOOL</div>
+
+<script>
+function sendWhatsApp(){
+  let name=document.getElementById('name').value;
+  let phone=document.getElementById('phone').value;
+
+  if(!name||!phone){
+    alert('Ranpli tout chan yo');
+    return;
+  }
+
+  let msg=`Bonjou, mwen rele ${name}. Mwen vle enskri nan fòmasyon an. Telefòn mwen: ${phone}`;
+  let url=`https://wa.me/50941932402?text=${encodeURIComponent(msg)}`;
+  window.open(url,'_blank');
+
+  decreaseSpots();
+}
+
+function decreaseSpots(){
+  let spots=document.getElementById('spots');
+  let current=parseInt(spots.textContent);
+  if(current>0){
+    spots.textContent=current-1;
+  }
+}
+</script>
+
+</body>
+</html>
